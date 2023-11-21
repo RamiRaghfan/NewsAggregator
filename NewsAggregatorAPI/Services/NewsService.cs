@@ -1,5 +1,6 @@
 ﻿using NewsAggregatorAPI.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace NewsAggregatorAPI.Services
 {
@@ -17,12 +18,11 @@ namespace NewsAggregatorAPI.Services
 
         }
 
-        public async Task<NewsApiResponse> GetNewsAsync(string country, string category)
+        public async Task<NewsApiResponse> GetNewsAsync(string country, string category, string keyword, string publisher)
         {
-            string url = $"https://newsapi.org/v2/top-headlines?country={country}&category={category}&apiKey={_apiKey}";
+            var url = NewsApiQueryBuilder.BuildQuery(country, category, keyword, publisher, _apiKey);
 
             var response = await _httpClient.GetAsync(url);
-         //   response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
             var newsData = JsonConvert.DeserializeObject<NewsApiResponse>(content);
@@ -33,5 +33,6 @@ namespace NewsAggregatorAPI.Services
 
             return newsData;
         }
+
     }
 }

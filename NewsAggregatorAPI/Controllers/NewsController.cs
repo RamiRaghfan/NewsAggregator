@@ -20,23 +20,36 @@ public class NewsController : ControllerBase
             _logger = logger;
         }
 
-
         [HttpGet("GetNews")]
-    public async Task<IActionResult> GetNews([FromQuery] string country, [FromQuery] string category)
-    {
-        try
+        public async Task<IActionResult> GetNews(
+            [FromQuery] string? country = null,
+            [FromQuery] string? category = null,
+            [FromQuery] string? keyword = null,
+            [FromQuery] string? publisher = null)
         {
-            var news = await _newsService.GetNewsAsync(country, category);
-            return Ok(news);
-        }
-            catch (Exception ex)
+            if (!string.IsNullOrWhiteSpace(country) ||
+                !string.IsNullOrWhiteSpace(category) ||
+                !string.IsNullOrWhiteSpace(keyword) ||
+                !string.IsNullOrWhiteSpace(publisher))
             {
-                _logger.LogError(ex, "An error occurred while processing the request");
-
-                return StatusCode(500, "An error occurred while processing your request");
+                try
+                {
+                    var news = await _newsService.GetNewsAsync(country, category, keyword, publisher);
+                    return Ok(news);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occurred while processing the request");
+                    return StatusCode(500, "An error occurred while processing your request");
+                }
+            }
+            else
+            {
+                return BadRequest("At least one parameter must be provided.");
             }
         }
 
-}
- 
+
+    }
+
 }
