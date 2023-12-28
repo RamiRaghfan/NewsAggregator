@@ -8,12 +8,9 @@ This project is currently under active development. Below is the progress on var
 
 ### Features Implemented
 
-- [x] Set up React project with TypeScript
 - [x] Implement basic project structure
-- [x] Create Header Component
 - [x] Create Navigation Bar Component
 - [x] Integrate Fetch API in Service Layer
-- [x] Style display component and display images/links
 - [x] Create Display Component
 - [ ]  Add unit tests *(work in progress)*
 
