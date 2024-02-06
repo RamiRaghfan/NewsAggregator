@@ -1,7 +1,28 @@
 // NewsListStyles.ts
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ThemeType } from '../../themes/themes';
+
+const patternStyle = css`
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 50%
+  );
+`;
+
+export const PatternBlock = styled.div<{ theme: ThemeType }>`
+  height: 200px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${props => props.theme.text};
+  background-color: ${props => props.theme.cardBackground};
+  ${patternStyle}
+`;
+
 
 export const NewsListContainer = styled.div`
   display: grid;
