@@ -1,7 +1,8 @@
 // Navigation.tsx
 import React from 'react';
-import { Nav, SearchInput, ButtonContainer } from './Navigation.styles';
+import { Nav, ButtonContainer, SearchButton, UserButtonPlaceholder, NotificationsButtonPlaceholder } from './Navigation.styles';
 import { StyledButton } from '../button/Button.style';
+import SearchIcon from '@mui/icons-material/Search'; // Import the MUI search icon
 
 type NavigationProps = {
   onCategorySelect: (category: string) => void;
@@ -23,14 +24,19 @@ const Navigation: React.FC<NavigationProps> = ({ onCategorySelect }) => {
         {categories.map((category, index) => (
           <StyledButton
           key={index}
-          onClick={() => handleCategoryClick(category)}
-                    
+          onClick={() => handleCategoryClick(category)}          
           >
             {category}
           </StyledButton>
         ))}
       </ButtonContainer>
-      <SearchInput type="text" placeholder="Search by keyword" />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <SearchButton>
+          <SearchIcon />
+        </SearchButton>
+        <UserButtonPlaceholder /> {/* Placeholder for user button */}
+        <NotificationsButtonPlaceholder /> {/* Placeholder for notifications button */}
+      </div>  
     </Nav>
   );
 };
