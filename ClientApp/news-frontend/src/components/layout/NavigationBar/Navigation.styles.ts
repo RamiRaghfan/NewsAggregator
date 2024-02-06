@@ -1,11 +1,13 @@
 // Navigation.styles.ts
 import styled from 'styled-components';
+import { ThemeType } from '../../themes/themes';
 
-export const Nav = styled.nav`
+export const Nav = styled.nav<{ theme: ThemeType }>`
+
+  background-color: ${props => props.theme.background};
   display: flex;
   justify-content: space-between;
   align-items: center; /* Vertically center items */
-  background-color: #333;
   padding: 10px;
 `;
 
@@ -28,19 +30,6 @@ export const SearchInput = styled.input`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 0px;
 `;
 
-export const StyledButton = styled.button`
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Add a smooth background color transition */
-
-  &:hover {
-    background-color: #0077b6; /* Change background color on hover */
-  }
-`;

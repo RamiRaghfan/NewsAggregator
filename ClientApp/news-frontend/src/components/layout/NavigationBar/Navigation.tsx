@@ -1,6 +1,7 @@
 // Navigation.tsx
 import React from 'react';
-import { Nav, SearchInput, ButtonContainer, StyledButton } from './Navigation.styles';
+import { Nav, SearchInput, ButtonContainer } from './Navigation.styles';
+import { StyledButton } from '../button/Button.style';
 
 const Navigation: React.FC = () => {
   const categories = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
@@ -12,7 +13,6 @@ const Navigation: React.FC = () => {
 
   return (
     <Nav>
-      <SearchInput type="text" placeholder="Search by keyword" />
       <ButtonContainer>
         {categories.map((category, index) => (
           <StyledButton
@@ -23,6 +23,7 @@ const Navigation: React.FC = () => {
           </StyledButton>
         ))}
       </ButtonContainer>
+      <SearchInput type="text" placeholder="Search by keyword" />
     </Nav>
   );
 };

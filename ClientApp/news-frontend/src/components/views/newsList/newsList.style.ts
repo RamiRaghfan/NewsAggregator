@@ -1,6 +1,7 @@
 // NewsListStyles.ts
 
 import styled from 'styled-components';
+import { ThemeType } from '../../themes/themes';
 
 export const NewsListContainer = styled.div`
   display: grid;
@@ -9,13 +10,13 @@ export const NewsListContainer = styled.div`
   margin-top: 2rem; // Adjusted to ensure the content is below the navbar
 `;
 
-export const NewsItem = styled.div`
+  export const NewsItem = styled.div<{ theme: ThemeType }>`
+  background-color: ${props => props.theme.cardBackground};
+  color: ${props => props.theme.text}; // Use theme text color for consistency
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   transition: transform 0.2s ease-in-out;
-  background-color: #272822; // Monokai background color
-  color: #f8f8f2; // Monokai text color
 
   &:hover {
     transform: scale(1.03); // Slight scale-up on hover
@@ -37,7 +38,7 @@ export const NewsTitle = styled.h3`
 
 export const NewsDescription = styled.p`
   font-size: 0.9rem;
-  color: #f8f8f2; // Monokai text color for readability
+  color: ${props => props.theme.text}; 
 `;
 
 export const NewsLink = styled.a`
