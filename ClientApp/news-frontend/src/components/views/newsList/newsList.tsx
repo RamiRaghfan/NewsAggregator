@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchNews } from '../../services/newsServices';
 import { Article } from '../../types/news';
-import { NewsListContainer, NewsItem, NewsImage, NewsTitle, NewsDescription } from './newsList.style'; // Updated import
+import { NewsDescription, NewsImage, NewsItem, NewsLink, NewsListContainer, NewsTitle } from './newsList.style';
 
 const NewsList: React.FC = () => {
   const [news, setNews] = useState<Article[]>([]);
@@ -20,26 +20,19 @@ const NewsList: React.FC = () => {
     fetchAndSetNews();
   }, []);
 
-  const handleNewsItemClick = (url: string) => {
-    window.open(url, '_blank'); // Open the article URL in a new tab
-  };
-
   if (error) return <div>{error}</div>;
   if (!news.length) return <div>Loading...</div>;
 
   return (
     <NewsListContainer>
       {news.map((article, index) => (
-        <NewsItem
-          key={index}
-          onClick={() => handleNewsItemClick(article.url)}
-          style={{ cursor: 'pointer' }} 
-        >
-          {article.urlToImage && (
+        <NewsItem key={index}>
+          <NewsLink href={article.url} target="_blank" rel="noopener noreferrer">
             <NewsImage src={article.urlToImage} alt={article.title} />
-          )}
+          </NewsLink>
           <NewsTitle>{article.title}</NewsTitle>
           <NewsDescription>{article.description}</NewsDescription>
+          {/* Other content like author and published date can go here */}
         </NewsItem>
       ))}
     </NewsListContainer>
