@@ -3,12 +3,18 @@ import React from 'react';
 import { Nav, SearchInput, ButtonContainer } from './Navigation.styles';
 import { StyledButton } from '../button/Button.style';
 
-const Navigation: React.FC = () => {
-  const categories = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
+type NavigationProps = {
+  onCategorySelect: (category: string) => void;
+};
 
-  const handleCategorySelect = (selectedCategory: string) => {
-    // Handle category selection logic here
-    console.log(`Selected category: ${selectedCategory}`);
+
+
+const Navigation: React.FC<NavigationProps> = ({ onCategorySelect }) => {
+  
+  const categories = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
+  
+  const handleCategoryClick = (category: string) => {
+    onCategorySelect(category); // Call the passed callback function with the selected category
   };
 
   return (
@@ -16,8 +22,9 @@ const Navigation: React.FC = () => {
       <ButtonContainer>
         {categories.map((category, index) => (
           <StyledButton
-            key={index}
-            onClick={() => handleCategorySelect(category)}
+          key={index}
+          onClick={() => handleCategoryClick(category)}
+                    
           >
             {category}
           </StyledButton>

@@ -9,9 +9,9 @@ export const StyledButton = styled.button<{ theme: ThemeType }>`
   border: none;
   cursor: pointer;
   position: relative;
-  font-family: 'Roboto', sans-serif; // Specify the font family for buttons
-  font-size: 1.1rem; // Make the font larger than the default
-  font-weight: 500; // Adjust the weight as needed
+  font-family: 'Roboto', sans-serif; 
+  font-size: 1rem; 
+  font-weight: 500; 
 
   &::after {
     content: "";
