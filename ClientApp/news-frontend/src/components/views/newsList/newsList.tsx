@@ -3,14 +3,20 @@ import { fetchNews } from '../../services/newsServices';
 import { Article } from '../../types/news';
 import { NewsDescription, NewsImage, NewsItem, NewsLink, NewsListContainer, NewsTitle } from './newsList.style';
 
-const NewsList: React.FC = () => {
-  const [news, setNews] = useState<Article[]>([]);
-  const [error, setError] = useState('');
+type NewsListProps = {
+  category: string;
+  country: string;
+  error: string;
+  setError: (error: string) => void;
+};
 
+const NewsList: React.FC<NewsListProps> = ({country,category, error, setError }) => {
+  const [news, setNews] = useState<Article[]>([]);
+  
   useEffect(() => {
     const fetchAndSetNews = async () => {
       try {
-        const fetchedNews = await fetchNews('us', 'technology'); // Example parameters
+        const fetchedNews = await fetchNews(country, category); // Example parameters
         setNews(fetchedNews.articles);
       } catch (error) {
         setError('Failed to load news');
@@ -18,7 +24,7 @@ const NewsList: React.FC = () => {
     };
 
     fetchAndSetNews();
-  }, []);
+  }, [country,category, setError]);
 
   if (error) return <div>{error}</div>;
   if (!news.length) return <div>Loading...</div>;
@@ -32,7 +38,6 @@ const NewsList: React.FC = () => {
           </NewsLink>
           <NewsTitle>{article.title}</NewsTitle>
           <NewsDescription>{article.description}</NewsDescription>
-          {/* Other content like author and published date can go here */}
         </NewsItem>
       ))}
     </NewsListContainer>

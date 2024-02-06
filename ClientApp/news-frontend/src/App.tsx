@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Header from './components/layout/Header';
-import Navigation from './components/layout/Navigation';
 import NewsList from './components/views/newsList/newsList';
-import GlobalStyle from './components/themes/GlobalStyle';
+import Navigation from './components/layout/NavigationBar/Navigation';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './components/themes/themes';
+import { GlobalStyle } from './components/themes/GlobalStyle';
 
 const App: React.FC = () => {
-  return (
+
+  const [theme, setTheme] = useState(lightTheme); // Start with light theme
+
+  const toggleTheme = () => {
+    theme === lightTheme ? setTheme(darkTheme) : setTheme(lightTheme);
+  };
+
+
+const [category, setCategory] = useState('technology'); // Default category
+const [error, setError] = useState('');
+
+const handleCategorySelect = (selectedCategory: string) => {
+   setCategory(selectedCategory);
+};
+return (
+  <ThemeProvider theme={theme}>
     <div className="App">
-      <GlobalStyle />
-      <Navigation />
-      <NewsList/>
-      {/* Other components */}
+      <GlobalStyle theme={theme} />
+      <Navigation onCategorySelect={handleCategorySelect} />
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <NewsList
+        category={category} 
+        country={'us'} 
+        error={error} 
+        setError={setError} 
+      />
     </div>
-  );
+  </ThemeProvider>
+);
+
 };
 
 

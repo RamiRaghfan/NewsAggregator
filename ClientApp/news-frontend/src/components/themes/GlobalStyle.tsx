@@ -1,18 +1,17 @@
+// src/GlobalStyle.tsx
+
 import { createGlobalStyle } from 'styled-components';
+import { ThemeType } from './themes';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   body {
-    background-color: #1c1c1c; /* Your desired dark background color */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background-color: ${props => props.theme.body};
+    color: ${props => props.theme.text};
+    transition: all 0.25s linear;
   }
-  /* Add other global styles if necessary */
-`;
 
-export default GlobalStyle;
+   h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Merriweather', serif;
+    // ...
+  }
+`;
