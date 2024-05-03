@@ -4,7 +4,7 @@ The NewsAggregator app is a modern news platform that aggregates news from vario
 
 ## Work in Progress
 
-This project is currently under active development. Below is the progress on various tasks:
+This project is currently under active development and needs to be compiled with VSCode and Visual Studio. Below is the progress on various tasks:
 
 ### Features Implemented
 
