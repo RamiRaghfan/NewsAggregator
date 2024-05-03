@@ -1,39 +1,43 @@
-// src/services/newsService.ts
 import axios from 'axios';
 import { NewsApiResponse } from '../types/news';
 
 const API_BASE_URL = 'https://localhost:7073';
 
+// Initialize a cache object
+const newsCache: {[key: string]: NewsApiResponse} = {};
+
 export const fetchNews = async (country: string, category: string): Promise<NewsApiResponse> => {
+  const cacheKey = `${country}_${category}`;
+  
+  // Check if the data is already in the cache
+  if (newsCache[cacheKey]) {
+    return newsCache[cacheKey];
+  }
+
   try {
     const response = await axios.get<NewsApiResponse>(`${API_BASE_URL}/News/GetNews`, {
       params: { country, category },
     });
+    
+    // Store response in cache
+    newsCache[cacheKey] = response.data;
+    
     return response.data;
   } catch (error: unknown) {
-    // Type-checking the error object
     if (axios.isAxiosError(error)) {
       console.error('Error fetching news:', error.message);
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.error(error.response.data);
         console.error(error.response.status);
         console.error(error.response.headers);
       } else if (error.request) {
-        // The request was made but no response was received
         console.error(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.error('Error', error.message);
       }
-    }
-
-    else {
+    } else {
       console.error('An unexpected error occurred:', error);
     }
     throw error;
   }
-
 };
-
